@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    container_name: koa-orders-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    # Força o container a usar DNS público (ajuda a resolver SRV/TXT do Atlas)
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    restart: unless-stopped
